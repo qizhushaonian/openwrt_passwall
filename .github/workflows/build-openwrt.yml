@@ -21,10 +21,11 @@ env:
   REPO_URL: https://github.com/gl-inet/openwrt
   REPO_BRANCH: openwrt-19.07.8
   CONFIG_FILE: .config
+  FEEDS_CONF: feeds.conf.default
   DIY_SH: diy.sh
-  FREE_UP_DISK: true
-  SSH_ACTIONS: true
-  UPLOAD_BIN_DIR: false
+  FREE_UP_DISK: false
+  #SSH_ACTIONS: true
+  UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -54,9 +55,8 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        chmod +x $DIY_P1_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
+        
+        
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
